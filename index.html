@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <link rel="stylesheet" href="todo.css">
+    <title>TODOS</title>
+    <center> <img src="http://todos.no/TodosLogo.jpg"width="350"height="165"/></center>
+  </head>
+  <body>
+
+    <div ng-controller="TodoListController as todoList">
+      <form ng-submit="todoList.addTodo()">
+        <center>
+        <input type="text" ng-model="todoList.todoText"  size="30"
+               placeholder="What need to bo done?">
+        <br><input class="btn-primary" type="submit" value="add"></br>
+
+      </form>
+
+       <ul class="unstyled">
+                 <li ng-repeat="todo in todoList.todos">
+                   <label class="checkbox">
+                     <input type="checkbox" ng-model="todo.done">
+                     <span class="done-{{todo.done}}">Up to you</span>
+                   </label>
+                 </li>
+      </ul>
+    </center>
+    </div>
+  </body>
+</html>
