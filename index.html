@@ -1,32 +1,53 @@
-<!doctype html>
-<html ng-app="todoApp">
+<!DOCTYPE html>
+<html ng-app="todosApp">
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="todo.js"></script>
-    <link rel="stylesheet" href="todo.css">
-    <title>TODOS</title>
-    <center> <img src="http://todos.no/TodosLogo.jpg"width="350"height="165"/></center>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODOS APP</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css" media="screen">
+      .done-true{
+        text-decoration: line-through;
+      }
+      .check-true{
+        background-color: #e7f9de;
+      }
+    </style>
   </head>
-  <body>
-
-    <div ng-controller="TodoListController as todoList">
-      <form ng-submit="todoList.addTodo()">
-        <center>
-        <input type="text" ng-model="todoList.todoText"  size="30"
-               placeholder="What need to bo done?">
-        <br><input class="btn-primary" type="submit" value="add"></br>
-
-      </form>
-
-       <ul class="unstyled">
-                 <li ng-repeat="todo in todoList.todos">
-                   <label class="checkbox">
-                     <input type="checkbox" ng-model="todo.done">
-                     <span class="done-{{todo.done}}">Up to you</span>
-                   </label>
-                 </li>
-      </ul>
-    </center>
+  <body style="background-color: #f5fcf2">
+    <div class="container">
+      <div ng-controller="AddTodosController" align="center">
+        <form name="todosForm">
+          <div class="form-group">
+            <label for="todos" style="color: rgba(0,0,0,0.5); font-size:100px">TODOS</label>
+            <input type="text" class="form-control" id="todos" placeholder="What need to be done?" ng-model="titles" style="width: 50%; background-color: #ebffdd">
+          </div>
+          <button type="button" class="btn btn-success" ng-click="save()" ng-disabled="!titles">ADD</button>
+        </form>
+      </div>
+      <div ng-controller="ListTodosController">
+        <table class="table table-hover" >
+          <thead>
+            <tr style="width: 90%">
+              <th style="width: 20%"></th>
+              <th style="width: 50%"><div align="center" style="font-size:20px">Title(s)</div></th>
+              <th style="width: 30%"><div align="center" style="font-size:20px">Done</div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="todo in todos" class="check-{{checked}}">
+              <td><div align="center"><input type="checkbox" ng-model="checked" ng-init="checked = todo.done" name="name" value=""></div></td>
+              <td><p class = "done-{{checked}}">{{ todo.titles }}</p></td>
+              <td><div align="center" ng-if="checked" >Complete</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/angular/angular.js" charset="utf-8"></script>
+    <script src="app.js"></script>
   </body>
 </html>
